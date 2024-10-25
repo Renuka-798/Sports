@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Fetcher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            background-color: #3f5368;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        /* Hover effect for the button */
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05); /* Slight zoom */
+        }
+
+        /* Location display styling */
+        #locationDisplay {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <button>Get Location</button>
+    <div id="locationDisplay">Your location will appear here</div>
+
+    <script>
+        const button = document.querySelector("button");
+        const locationDisplay = document.getElementById("locationDisplay");
+
+        button.addEventListener("click", () => {
+            navigator.geolocation.getCurrentPosition(position => {
+                const { latitude, longitude } = position.coords;
+                const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
+                fetch(url)
+                    .then(res => res.json())
+                    .then(data => {
+                        const location = data.address.city || data.address.town || "Location Not Found";
+                        locationDisplay.textContent = `Location: ${location}`;
+                    })
+                    .catch(() => {
+                        locationDisplay.textContent = "Error fetching data from API";
+                    });
+            }, () => {
+                locationDisplay.textContent = "Location access denied. Please enable location services.";
+            });
+        });
+    </script>
+</body>
+</html>

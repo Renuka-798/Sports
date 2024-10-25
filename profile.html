@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #a0a0c8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: rgb(197, 177, 177);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+        }
+
+        /* Brightness and zoom effect on hover */
+        .profile-container:hover {
+            transform: scale(1.05); /* Slight zoom */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+            filter: brightness(1.1); /* Increase brightness */
+        }
+
+        .profile-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            transition: color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .profile-name:hover {
+            color: #010810;
+            text-decoration: underline;
+            transform: scale(1.1);
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #6c757d;
+            color: rgb(120, 84, 84);
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        
+        .profile-stats {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .stat {
+            font-size: 1em;
+            padding: 10px 0;
+            color: #333;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #faf2f2;
+        }
+
+        .stat-label {
+            font-weight: bold;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="profile-container">
+    <div id="profileName" class="profile-name">Name: John</div>
+    
+    <div class="profile-image" id="profileImage">
+        <!-- Initials will go here -->
+    </div>
+    
+    <div class="profile-stats">
+        <div class="stat">
+            <span class="stat-label">Streaks:</span>
+            <span id="streaks">15 days</span>
+        </div>
+        <div class="stat">
+            <span class="stat-label">Calories Burned:</span>
+            <span id="calories">500 kcal</span>
+        </div>
+        <div class="stat">
+            <span class="stat-label">Steps:</span>
+            <span id="steps">7500 steps</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const userName = prompt("Please enter your name:");
+        
+        if (userName) {
+            document.getElementById("profileName").textContent = `Name: ${userName}`;
+            document.title = `${userName}'s Profile`;
+            
+            const initials = userName.split(" ").map(word => word[0]).join("").toUpperCase();
+            document.getElementById("profileImage").textContent = initials;
+        }
+
+        const streaks = 15;
+        const caloriesBurned = 700;
+        const steps = 8500;
+
+        document.getElementById("streaks").textContent = `${streaks} days`;
+        document.getElementById("calories").textContent = `${caloriesBurned} kcal`;
+        document.getElementById("steps").textContent = `${steps} steps`;
+    });
+</script>
+
+</body>
+</html>
